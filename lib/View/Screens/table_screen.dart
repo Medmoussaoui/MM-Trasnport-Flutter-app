@@ -9,6 +9,8 @@ import 'package:mmtransport/controllers/TableScreen/index.dart';
 class TableScreen extends StatelessWidget {
   const TableScreen({super.key});
 
+  final String name = "";
+
   @override
   Widget build(BuildContext context) {
     final controller = Get.put(TableScreenController());

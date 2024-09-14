@@ -6,8 +6,15 @@ class AppTheme {
     primaryColor: AppColors.primaryColor,
     scaffoldBackgroundColor: AppColors.backgroundColor,
     textTheme: const TextTheme(
-      titleLarge: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
-      bodySmall: TextStyle(fontSize: 14.5),
+      titleLarge: TextStyle(
+        fontSize: 20,
+        fontWeight: FontWeight.w600,
+        height: 1,
+      ),
+      bodySmall: TextStyle(
+        fontSize: 14.5,
+        height: 1,
+      ),
     ),
     appBarTheme: const AppBarTheme(
       backgroundColor: AppColors.black,

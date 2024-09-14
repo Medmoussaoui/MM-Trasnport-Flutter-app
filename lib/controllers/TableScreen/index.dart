@@ -11,7 +11,6 @@ import 'package:mmtransport/Operations/create_service.dart';
 import 'package:mmtransport/Operations/edit_service.dart';
 import 'package:mmtransport/Operations/get_table_services.dart';
 import 'package:mmtransport/Operations/remove_service.dart';
-import 'package:mmtransport/Operations/remove_table.dart';
 import 'package:mmtransport/Operations/trasnfer_services.dart';
 import 'package:mmtransport/View/Widgets/TableScreen/table_menu_bottom_sheet.dart';
 import 'package:mmtransport/View/Widgets/TableScreen/table_select_bottom_sheet.dart';
@@ -20,6 +19,8 @@ import 'package:mmtransport/class/snackbars.dart';
 import 'package:mmtransport/controllers/GenerateInvoice/generate_custom_invoice.dart';
 import 'package:mmtransport/controllers/GenerateInvoice/generate_table_invoice.dart';
 import 'package:mmtransport/controllers/folders/index.dart';
+
+import '../folders/delete_table.dart';
 
 class TableScreenController extends GetxController {
   late TableDataController tableDataController;
@@ -57,22 +58,14 @@ class TableScreenController extends GetxController {
   }
 
   deleteTable() async {
-    Get.back();
-    await Future.delayed(const Duration(milliseconds: 200));
-    customConfirmDeleteDialog(
-      subTitle: "سيتم فقد الجدول بشكل كامل عند عملية الحذف",
-      onAccept: () async {
+    await DeleteTableConfirmationController(
+      table: table.value,
+      onSuccess: () {
+        Get.find<FoldersScreenController>().deleteTableById(table.value.id!);
         Get.back();
-        customLoadingDailog(text: "جري حذف الجدول");
-        bool result = await RemoveTableController(tableEntity).remove();
-        Get.back(); // for loading dialog
-        if (result) {
-          Get.find<FoldersScreenController>().deleteTableById(table.value.id!);
-          Get.back();
-          AppSnackBars.successDeleteTable();
-        }
+        AppSnackBars.successDeleteTable();
       },
-    );
+    ).delete();
   }
 
   Future<void> showTableSelectSheet() async {

@@ -6,4 +6,5 @@ class AppImages {
   static const String truck = "$rootImages/truck.png";
   static const String logo = "$rootImages/logo.png";
   static const String empty = "$rootImages/empty.png";
+  static const String error = "$rootImages/error.png";
 }

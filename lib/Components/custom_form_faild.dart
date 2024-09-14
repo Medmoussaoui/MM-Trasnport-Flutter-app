@@ -106,22 +106,19 @@ class _CustomTextFormFaildState extends State<CustomTextFormFaild> {
         cursorColor: AppColors.primaryColor,
         obscuringCharacter: "●",
         decoration: InputDecoration(
-          contentPadding: const EdgeInsets.symmetric(
-            horizontal: 10.0,
-            vertical: 18.0,
-          ),
+          contentPadding: const EdgeInsets.only(top: 5.0, right: 10, left: 10),
           filled: widget.filled ?? true,
           fillColor: widget.filledColor ?? AppColors.gey.withOpacity(0.15),
           hintText: widget.hintText,
           enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(12),
+            borderRadius: BorderRadius.circular(10),
             borderSide: const BorderSide(
               width: 0.5,
               color: AppColors.geyDeep,
             ),
           ),
           errorBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(12),
+            borderRadius: BorderRadius.circular(10),
             borderSide: const BorderSide(
               width: 0.5,
               color: Colors.red,

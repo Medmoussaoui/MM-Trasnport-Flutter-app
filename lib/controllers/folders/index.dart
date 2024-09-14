@@ -1,17 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
-import 'package:mmtransport/Components/Dialogs/loading_dialog.dart';
 import 'package:mmtransport/Components/custom_bottom_sheet_generate_invoice.dart';
-import 'package:mmtransport/Components/custom_confirm_delete_dialog.dart';
 import 'package:mmtransport/Data/entitys/table.entity.dart';
 import 'package:mmtransport/Functions/show_bottom_sheet.dart';
 import 'package:mmtransport/Operations/get_tables.dart';
-import 'package:mmtransport/Operations/remove_table.dart';
 import 'package:mmtransport/View/Widgets/TableScreen/table_menu_bottom_sheet.dart';
 import 'package:mmtransport/class/api_connection.dart';
 import 'package:mmtransport/class/redirect_to.dart';
 import 'package:mmtransport/class/snackbars.dart';
 import 'package:mmtransport/controllers/GenerateInvoice/generate_table_invoice.dart';
+import 'package:mmtransport/controllers/folders/delete_table.dart';
 
 class FoldersScreenController extends GetxController {
   GetTablesController getTablesController = GetTablesController();
@@ -64,23 +62,15 @@ class FoldersScreenController extends GetxController {
   }
 
   deleteTable() async {
-    Get.back();
-    await Future.delayed(const Duration(milliseconds: 200));
-    customConfirmDeleteDialog(
-      subTitle: "سيتم فقد الجدول بشكل كامل عند عملية الحذف",
-      onAccept: () async {
-        Get.back();
-        customLoadingDailog(text: "جري حذف الجدول");
-        final table = getTablesRequest.value.data[tableIndex.value];
-        bool result = await RemoveTableController(table).remove();
-        Get.back(); // for loading dialog
-        if (result) {
-          tables.remove(table);
-          clearSearch();
-          AppSnackBars.successDeleteTable();
-        }
+    final table = getTablesRequest.value.data[tableIndex.value];
+    await DeleteTableConfirmationController(
+      table: table,
+      onSuccess: () {
+        tables.remove(table);
+        clearSearch();
+        AppSnackBars.successDeleteTable();
       },
-    );
+    ).delete();
   }
 
   void deleteTableById(int id) {

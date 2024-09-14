@@ -5,16 +5,28 @@ String dateToHafen(String formattedString) {
 }
 
 String getDate(String formattedString) {
-  return DateFormat.yMd(DateTime.parse(formattedString)).toString();
+  try {
+    return DateFormat.yMd().format(DateTime.parse(formattedString));
+  } catch (err) {
+    return DateFormat.yMd().format(DateTime.now());
+  }
 }
 
 getDateAndTime(String formattedString) {
   DateTime dateTime = DateTime.parse(formattedString);
-  String time = DateFormat.jm(dateTime).toString();
-  String date = DateFormat.yMd(dateTime).toString();
+  String time = DateFormat.jm().format(dateTime);
+  String date = DateFormat.yMd().format(dateTime);
   return "$date $time";
 }
 
 getTime(String formattedString) {
-  return DateFormat.jm(formattedString).toString();
+  return DateFormat.jm().format(DateTime.parse(formattedString));
+}
+
+DateTime? isValidDate(String dateString) {
+  try {
+    return DateTime.parse(dateString);
+  } catch (e) {
+    return null;
+  }
 }
